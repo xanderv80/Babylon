@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html" ; charset="utf-8" />
-    <title>Babylon Template</title>
+    <title>Tarot Card Game</title>
     <script src="https://cdn.babylonjs.com/babylon.max.js"></script>
     <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
@@ -30,17 +30,23 @@
         //scene.clearColor = new BABYLON.Color3.Blue();
 
         // Add a camera to the scene and attach it to the canvas
-        var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0,0,5), scene);
+        var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, Math.PI / 2, 4, BABYLON.Vector3.Zero(), scene);
         camera.attachControl(canvas, true);
 
         // Add lights to the sceen
         var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+        //var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
 
         // Add and manipulate meshes in the scene
-        //var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:2}, scene);
-        var plane = BABYLON.MeshBuilder.CreatePlane("plane", {height:2, width: 1, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
-       
+        var f = new BABYLON.Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
+        var b = new BABYLON.Vector4(0,0, 0.5, 1); // back image = second half along the width 
+    
+        var plane = BABYLON.MeshBuilder.CreatePlane("plane", {height:2, width: 1, sideOrientation: BABYLON.Mesh.DOUBLESIDE, frontUVs: f, backUVs: b}, scene);
+        var mat = new BABYLON.StandardMaterial("", scene);
+        mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/q3bNGwV.jpg", scene);
+        plane.material = mat;
+
+
         return scene;
       };
       /******* End of the create scene function ******/
@@ -55,7 +61,7 @@
 
       // Watch for browser/canvas resize events
       window.addEventListener("resize", function () {
-                engine.resize();
+          engine.resize();
         });
     </script>
 
