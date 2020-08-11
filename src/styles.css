@@ -8,8 +8,7 @@ body {
   background-color: blue;
 }
 
-#renderCavans {
-  width: 100%;
+#renderCanvas {
   height: 100%;
-  touch-action: none;
+  width: 100%;
 }

@@ -8,13 +8,19 @@
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
     <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    <link rel="stylesheet" href="src/styles.css">
   </head>
 
   <body>
-    <canvas id="renderCanvas" touch-action="none" style="height:800px; width:600px;"></canvas>
-    <!-- touch-action="none" for best results from PEP -->
 
     <script src="src/index.js"></script>
+
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+    <canvas id="bottomCanvas" touch-action="none"></canvas>
+    
+    <!-- touch-action="none" for best results from PEP -->
+
+    
 
     <script>
       window.addEventListener("DOMContentLoaded", function() {
@@ -22,29 +28,85 @@
       /*** Add the create scene function ***/
       var canvas = document.getElementById("renderCanvas");
       var engine = new BABYLON.Engine(renderCanvas, true);
+      
 
       var createScene = function() {
 
         // Create the scene space
         var scene = new BABYLON.Scene(engine);
+        
         //scene.clearColor = new BABYLON.Color3.Blue();
 
         // Add a camera to the scene and attach it to the canvas
-        var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, Math.PI / 2, 4, BABYLON.Vector3.Zero(), scene);
-        camera.attachControl(canvas, true);
+
+        var camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 0, -1.5), scene);
+
+
+
+
+        //var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2, Math.PI / 2, 4, BABYLON.Vector3.Zero(), scene);
+        //camera.attachControl(canvas, true);
 
         // Add lights to the sceen
         var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-        //var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(1, 1, -1), scene);
 
         // Add and manipulate meshes in the scene
         var f = new BABYLON.Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
         var b = new BABYLON.Vector4(0,0, 0.5, 1); // back image = second half along the width 
     
-        var plane = BABYLON.MeshBuilder.CreatePlane("plane", {height:2, width: 1, sideOrientation: BABYLON.Mesh.DOUBLESIDE, frontUVs: f, backUVs: b}, scene);
+        var plane = BABYLON.MeshBuilder.CreatePlane("plane", {height:1, width: 1, sideOrientation: BABYLON.Mesh.DOUBLESIDE, frontUVs: f, backUVs: b}, scene);
         var mat = new BABYLON.StandardMaterial("", scene);
-        mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/q3bNGwV.jpg", scene);
+        mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/3HVZifN.jpg", scene);
         plane.material = mat;
+
+        plane.rotation.x = 1;
+        plane.setPositionWithLocalVector(new BABYLON.Vector3(0, -0.2, 0)); 
+
+        var c1f = new BABYLON.Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
+        var c1b = new BABYLON.Vector4(0,0, 0.5, 1); // back image = second half along the width 
+    
+        var card1 = BABYLON.MeshBuilder.CreatePlane("card1", {height:0.5, width: 0.25, sideOrientation: BABYLON.Mesh.DOUBLESIDE, frontUVs: f, backUVs: b}, scene);
+        var c1mat = new BABYLON.StandardMaterial("", scene);
+        c1mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/q3bNGwV.jpg", scene);
+        card1.material = c1mat;
+        card1.setPositionWithLocalVector(new BABYLON.Vector3(0, 0.25, -0.3));
+
+        var c2f = new BABYLON.Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
+        var c2b = new BABYLON.Vector4(0,0, 0.5, 1); // back image = second half along the width 
+    
+        var card2 = BABYLON.MeshBuilder.CreatePlane("card2", {height:0.3, width: 0.15, sideOrientation: BABYLON.Mesh.DOUBLESIDE, frontUVs: c2f, backUVs: c2b}, scene);
+        var c2mat = new BABYLON.StandardMaterial("", scene);
+        c2mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/q3bNGwV.jpg", scene);
+        card2.material = c2mat;
+        card2.rotation.y = 3.18;
+        card2.rotation.x = -1;
+        card2.setPositionWithLocalVector(new BABYLON.Vector3(0.25, -0.35, 0.01));
+
+        var c3f = new BABYLON.Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
+        var c3b = new BABYLON.Vector4(0,0, 0.5, 1); // back image = second half along the width 
+    
+        var card3 = BABYLON.MeshBuilder.CreatePlane("card3", {height:0.3, width: 0.15, sideOrientation: BABYLON.Mesh.DOUBLESIDE, frontUVs: c3f, backUVs: c3b}, scene);
+        var c3mat = new BABYLON.StandardMaterial("", scene);
+        c3mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/q3bNGwV.jpg", scene);
+        card3.material = c3mat;
+        card3.rotation.y = 3.18;
+        card3.rotation.x = -1;
+        card3.setPositionWithLocalVector(new BABYLON.Vector3(0, -0.35, 0.01));
+
+        var c4f = new BABYLON.Vector4(0.5,0, 1, 1); // front image = half the whole image along the width 
+        var c4b = new BABYLON.Vector4(0,0, 0.5, 1); // back image = second half along the width 
+
+        var card4 = BABYLON.MeshBuilder.CreatePlane("card4", {height:0.3, width: 0.15, sideOrientation: BABYLON.Mesh.DOUBLESIDE, frontUVs: c4f, backUVs: c4b}, scene);
+        var c4mat = new BABYLON.StandardMaterial("", scene);
+        c4mat.diffuseTexture = new BABYLON.Texture("https://i.imgur.com/q3bNGwV.jpg", scene);
+        card4.material = c4mat;
+        card4.rotation.y = 3.18;
+        card4.rotation.x = -1;
+        card4.setPositionWithLocalVector(new BABYLON.Vector3(-0.25, -0.35, 0.01));
+
+
+
 
 
         return scene;
